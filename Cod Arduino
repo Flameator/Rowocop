@@ -1,0 +1,64 @@
+// Definición de variables y constantes relacionadas con el motor izquierdo
+
+const int IN1 = 7;  // Pin digital 13 para controlar sentido giro motor izquierdo
+const int IN2 = 6;  // Pin digital 12 para controlar sentido giro motor izquierdo
+ 
+// Definición de variables y constantes relacionadas con el motor derecho
+
+const int IN3 = 4;  // Pin digital 11 para controlar sentido giro motor izquierdo
+const int IN4 = 5;  // Pin digital 10 para controlar sentido giro motor izquierdo
+ 
+// Definición de variables y constantes relacionadas con los sensores IR
+
+int infraPin1 = 3;    // izquierdo - pin del infrarrojos utilizado como entrada digital
+int infraPin2= 2;  //  derecho
+int valorInfra1 = 0;  // Valor inicial de la lectura digital del infrarrojos izquierdo 
+int valorInfra2 = 0;  // derecho
+ 
+void setup()
+{
+  
+  // Se declaran todos los pines como salidas
+  // Pines asociados a los motores
+  pinMode (IN1, OUTPUT);
+  pinMode (IN2, OUTPUT);
+  pinMode (IN3, OUTPUT);
+  pinMode (IN4, OUTPUT);
+  pinMode( infraPin1  , INPUT) ;
+  pinMode( infraPin2  , INPUT) ;
+  Serial.begin(9600); // Se inicia el puerto de comunicaciones en serie
+
+}
+ 
+void loop()
+{
+   // 0 = blanco / 1 = negro
+   valorInfra1 = digitalRead(infraPin1);    // valor de la entrada que lee el infrarrojo izquierdo
+   valorInfra2 = digitalRead(infraPin2);  // valor de la entrada que lee el infrarrojo derecho
+   
+  if(valorInfra1 == 1 && valorInfra2 == 1){ // Hacia delante
+     
+   digitalWrite (IN1, LOW);
+   digitalWrite (IN2, HIGH);
+   digitalWrite (IN3, LOW);
+   digitalWrite (IN4, HIGH);
+ 
+ 
+}
+
+ if(valorInfra1 == 0 && valorInfra2 == 0){  // STOP
+  
+   digitalWrite (IN1, LOW);
+   digitalWrite (IN2, LOW);
+   digitalWrite (IN3, LOW);
+   digitalWrite (IN4, LOW);
+      delay(500);
+      
+   digitalWrite (IN1, LOW);
+   digitalWrite (IN2, HIGH);
+   digitalWrite (IN3, LOW);
+   digitalWrite (IN4, LOW);
+      delay(1000);
+      
+}
+}
